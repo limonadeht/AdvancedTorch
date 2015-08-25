@@ -2,6 +2,7 @@ package lychemon.advtorch;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -9,11 +10,13 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import lychemon.advtorch.block.BlockAdvTorch;
 import lychemon.advtorch.block.BlockTorchMk1;
 import lychemon.advtorch.block.BlockTorchMk2;
+import lychemon.advtorch.block.BlockTv;
 import lychemon.advtorch.block.SampleGuiBlock;
 import lychemon.advtorch.gui.GuiHandler;
 import lychemon.advtorch.item.AdvTorchItems;
 import lychemon.advtorch.item.SampleGuiItem;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
@@ -24,11 +27,16 @@ public class AdvancedTorch
 	public static final String MODID = "Advanced-Torch";
 	public static final String VERSION = "Alpha-1.0.0";
 
+	//PROXIES
+	@SidedProxy(clientSide = "lychemon.advtorch.ClientProxy", serverSide = "lychemon.advtorch.ServerProxy")
+	public static ServerProxy Tvproxy;
+
 	//BLOCKS
 	public static Block BlockTorchMk1;
 	public static Block BlockTorchMk2;
 	public static Block BlockAdvTorch;
 	public static Block SampleGuiBlock;
+	public static Block BlockTv;
 
 	//ITEMS
 	public static Item SampleGuiItem;
@@ -65,7 +73,13 @@ public class AdvancedTorch
         SampleGuiItem = new SampleGuiItem().setTextureName("arrow").setUnlocalizedName("sampleGuiItem").setCreativeTab(tabAdvTorch);
         GameRegistry.registerItem(SampleGuiItem, "sample_GuiItem");
 
+        BlockTv = new BlockTv(Material.rock).setBlockName("TV");
+        GameRegistry.registerBlock(BlockTv, "TV");
+
 		//TILEENTITY
+
+        //RENDERERS
+        Tvproxy.registerRenderThings();
 
 		//ITEMS
 		AdvTorchItems.registry(this);
@@ -74,6 +88,7 @@ public class AdvancedTorch
     @EventHandler
     public void Init( FMLInitializationEvent e )
     {
+
     	Recipes.registry();
     	NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
     }

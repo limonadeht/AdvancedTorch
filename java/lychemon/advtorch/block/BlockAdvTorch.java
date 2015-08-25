@@ -11,8 +11,9 @@ public class BlockAdvTorch extends Block
 		super(Material.anvil);
 
 			this.setBlockName("OMG");
-			this.setBlockTextureName("advancedtorch:block_advtorch");
+			this.setBlockTextureName("advancedtorch:model_tv");
 			this.setCreativeTab(AdvancedTorch.tabAdvTorch);
+			this.setStepSound(soundTypeAnvil);
 
 	}
 }
