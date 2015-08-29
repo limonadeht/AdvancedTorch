@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 public class RenderTvBlock extends TileEntitySpecialRenderer
 {
 
-	private static final ResourceLocation texture = new ResourceLocation("advancedtorch:Model");
+	private static final ResourceLocation texture = new ResourceLocation("advancedtorch", "textures/models/Model.png");
 
 	private ModelTv model;
 

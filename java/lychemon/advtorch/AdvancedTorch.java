@@ -53,6 +53,11 @@ public class AdvancedTorch
 	//INSTANCE
 	public static AdvancedTorch INSTANCEE;
 
+	//POWER
+	@SidedProxy(clientSide = "lychemon.advtorch.power.ClientProxyPW",
+			serverSide = "lychemon.advtorch.power.CommonProxyPW")
+	public static lychemon.advtorch.power.CommonProxyPW proxy;
+
 	@EventHandler
     public void preInit( FMLPreInitializationEvent e )
     {
@@ -76,6 +81,9 @@ public class AdvancedTorch
         BlockTv = new BlockTv(Material.rock).setBlockName("TV");
         GameRegistry.registerBlock(BlockTv, "TV");
 
+		//tutBlocks(CABLES)
+		lychemon.advtorch.block.tutBlocks.init();
+
 		//TILEENTITY
 
         //RENDERERS
@@ -88,6 +96,9 @@ public class AdvancedTorch
     @EventHandler
     public void Init( FMLInitializationEvent e )
     {
+		//POWER
+		proxy.registerRenderers();
+		proxy.registerTileEntitys();
 
     	Recipes.registry();
     	NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
