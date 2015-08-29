@@ -6,6 +6,8 @@ import net.minecraft.entity.Entity;
 
 public class ModelTv extends ModelBase
 {
+	public static ModelTv instance = new ModelTv();
+
   //fields
     ModelRenderer tvBase1;
     ModelRenderer tvPillar;
