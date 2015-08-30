@@ -1,11 +1,11 @@
 package lychemon.advtorch.util;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
 
 public class BlockUtil
 {
-	public static int determineMetadataBasedOnPlayerOrientation(EntityPlayer player)
+	public static int determineMetadataBasedOnPlayerOrientation(EntityLivingBase player)
 	{
 		int rotation = MathHelper.floor_double((double) (player.rotationYaw * 4.0F / 360.F) + 0.5F) &3;
 		if(rotation == 0)
