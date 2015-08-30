@@ -13,7 +13,7 @@ public class ClientProxyPW extends CommonProxyPW
 	@Override
 	public void registerRenderers()
 	{
-		ClientRegistry.registerTileEntity(lychemon.advtorch.tileentity.TileEntityCable.class, AdvancedTorch.MODID + ":" + lychemon.advtorch.Names.CABLE, TileEntityCableRenderer.instance);
+		ClientRegistry.registerTileEntity(lychemon.advtorch.tileentity.TileEntityCable.class, AdvancedTorch.MOD_ID + ":" + lychemon.advtorch.Names.CABLE, TileEntityCableRenderer.instance);
 
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(lychemon.advtorch.block.tutBlocks.CABLE), ItemCableRenderer.instance);
 	}

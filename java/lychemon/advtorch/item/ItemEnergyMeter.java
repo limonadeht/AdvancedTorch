@@ -27,7 +27,7 @@ public class ItemEnergyMeter extends Item
 			TileEntity tileentity = world.getTileEntity(x, y, z);
 			if(tileentity instanceof IEnergy)
 			{
-				player.addChatMessage(new ChatComponentText("[" + AdvancedTorch.MODID + "] Energy level = " + ((IEnergy) tileentity).getEnergyBar().getEnergyLevel()));
+				player.addChatMessage(new ChatComponentText("[" + AdvancedTorch.MOD_ID + "] Energy level = " + ((IEnergy) tileentity).getEnergyBar().getEnergyLevel()));
 			}
 			return true;
 		}

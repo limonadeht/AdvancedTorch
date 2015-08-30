@@ -5,7 +5,6 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import lychemon.advtorch.block.BlockAdvTorch;
 import lychemon.advtorch.block.BlockTorchMk1;
@@ -15,21 +14,26 @@ import lychemon.advtorch.block.SampleGuiBlock;
 import lychemon.advtorch.gui.GuiHandler;
 import lychemon.advtorch.item.AdvTorchItems;
 import lychemon.advtorch.item.SampleGuiItem;
+import lychemon.advtorch.power.CommonProxyPW;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
-@Mod(modid = AdvancedTorch.MODID, version = AdvancedTorch.VERSION, useMetadata = true)
+@Mod(modid = AdvancedTorch.MOD_ID, version = AdvancedTorch.VERSION, useMetadata = true)
 public class AdvancedTorch
 {
 	@Mod.Instance("AdvancedTorch")
-	public static final String MODID = "Advanced-Torch";
-	public static final String VERSION = "Alpha-1.0.0";
+	//INSTANCE
+	public static AdvancedTorch instance;
+	public static final String MOD_ID = "AdvancedTorch";
+	public static final String VERSION = "Alpha-2.3.3";
 
 	//PROXIES
 	@SidedProxy(clientSide = "lychemon.advtorch.ClientProxy", serverSide = "lychemon.advtorch.ServerProxy")
+
 	public static ServerProxy Tvproxy;
+	public static ServerProxy ServerProxy;
 
 	//BLOCKS
 	public static Block BlockTorchMk1;
@@ -47,16 +51,13 @@ public class AdvancedTorch
 	//CREATIVETABS
 	public static final CreativeTabs tabAdvTorch = new AdvancedTorchTab("AdvancedTorch");
 
-	//GUI_IDS
-	public static final int GUI_ID = 0;
-
-	//INSTANCE
-	public static AdvancedTorch INSTANCEE;
+	//GUI_ID
+	public static final int GUI_ID = 1;
 
 	//POWER
 	@SidedProxy(clientSide = "lychemon.advtorch.power.ClientProxyPW",
 			serverSide = "lychemon.advtorch.power.CommonProxyPW")
-	public static lychemon.advtorch.power.CommonProxyPW proxy;
+	public static CommonProxyPW proxy;
 
 	@EventHandler
     public void preInit( FMLPreInitializationEvent e )
@@ -100,7 +101,9 @@ public class AdvancedTorch
 		proxy.registerRenderers();
 		proxy.registerTileEntitys();
 
+		//GUI
+		GuiHandler.register();
+
     	Recipes.registry();
-    	NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
     }
 }

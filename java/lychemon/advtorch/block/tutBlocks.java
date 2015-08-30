@@ -7,14 +7,14 @@ import net.minecraft.block.Block;
 public class tutBlocks
 {
 	public static Block CABLE;
-	public static Block EnergyGenerator;
+	public static Block POWER_GENERATOR;
 
 	public static void init()
 	{
 		CABLE = new BlockCable();
-		//EnergyGenerator = new BlockEnergyGenerator();
+		POWER_GENERATOR = new BlockEnergyGenerator();
 
 		GameRegistry.registerBlock(CABLE, ItemBlockStandardMetadata.class, Names.CABLE);
-		//GameRegistry.registerBlock(EnergyGenerator, Names.ENERGY_GENERATOR);
+		GameRegistry.registerBlock(POWER_GENERATOR, ItemBlockStandardMetadata.class, Names.ENERGY_GENERATOR);
 	}
 }

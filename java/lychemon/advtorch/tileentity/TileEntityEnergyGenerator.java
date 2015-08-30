@@ -5,6 +5,7 @@ import lychemon.advtorch.power.EnergyBar;
 import lychemon.advtorch.power.EnergyNet;
 import lychemon.advtorch.power.IEnergy;
 import lychemon.advtorch.util.InventoryUtil;
+import lychemon.advtorch.util.NBTUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -247,5 +248,25 @@ public class TileEntityEnergyGenerator extends TileEntity implements IEnergy, II
 	public BlockType getTypeofBlock()
 	{
 		return BlockType.MACHINE;
+	}
+
+	public void writeToNBT(NBTTagCompound tag)
+	{
+		super.writeToNBT(tag);
+		energyBar.writeToNBT(tag);
+		tag.setInteger("rotation", rotation);
+		tag.setInteger("burnTime", burnTime);
+		tag.setInteger("currentItemBurnTime", currentItemBurnTime);
+		NBTUtil.writeItemStackArrayToNBT(inventory, tag);
+	}
+
+	public void readFromNBT(NBTTagCompound tag)
+	{
+		super.readFromNBT(tag);
+		energyBar.readFromNBT(tag);
+		rotation = tag.getInteger("rotation");
+		burnTime = tag.getInteger("burnTime");
+		currentItemBurnTime = tag.getInteger("currentItemBurnTime");
+		NBTUtil.readItemStackArrayFromNBT(inventory, tag);
 	}
 }

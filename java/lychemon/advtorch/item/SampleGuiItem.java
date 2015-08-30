@@ -11,7 +11,7 @@ public class SampleGuiItem extends Item
 {
 	@Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
-        player.openGui(AdvancedTorch.INSTANCEE, AdvancedTorch.GUI_ID, world, MathHelper.ceiling_double_int(player.posX), MathHelper.ceiling_double_int(player.posY), MathHelper.ceiling_double_int(player.posZ));
+        player.openGui(AdvancedTorch.instance, AdvancedTorch.GUI_ID, world, MathHelper.ceiling_double_int(player.posX), MathHelper.ceiling_double_int(player.posY), MathHelper.ceiling_double_int(player.posZ));
         return itemStack;
     }
 }

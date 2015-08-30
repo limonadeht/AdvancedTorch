@@ -11,8 +11,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -49,7 +51,7 @@ public class BlockEnergyGenerator extends Block
 	{
 		if(!world.isRemote)
 		{
-			player.openGui(AdvancedTorch.INSTANCEE, GuiIds.POWER_GENERATOR, world, x, y, z);
+			player.openGui(AdvancedTorch.instance, GuiIds.POWER_GENERATOR, world, x, y, z);
 		}
 		return true;
 	}
@@ -101,4 +103,46 @@ public class BlockEnergyGenerator extends Block
 
 		}
 	}
+
+	public void breakBlock(World world, int x, int y, int z, Block oldBlock, int oldMetadata)
+    {
+                if(!keepInventory)
+                {
+                        TileEntityEnergyGenerator tileEntity = (TileEntityEnergyGenerator)world.getTileEntity(x, y, z);
+
+                        if(tileEntity != null)
+                        {
+                                for(int i = 0; i < tileEntity.getSizeInventory(); i++)
+                                {
+                                        ItemStack itemStack = tileEntity.getStackInSlot(i);
+
+                                        if(itemStack != null)
+                                        {
+                                                float f = this.rand.nextFloat() * 0.8F + 0.1F;
+                                                float f1 = this.rand.nextFloat() * 0.8F + 0.1F;
+                                                float f2 = this.rand.nextFloat() * 0.8F + 0.1F;
+
+                                                while(itemStack.stackSize > 0)
+                                                {
+                                                        int j = this.rand.nextInt(21) + 10;
+
+                                                        if(j > itemStack.stackSize)
+                                                                j = itemStack.stackSize;
+
+                                                        itemStack.stackSize -= j;
+
+                                                        EntityItem item = new EntityItem(world, (double)((float)x + f), (double)((float)y + f1), (double)((float)z + f2), new ItemStack(itemStack.getItem(), j, itemStack.getItemDamage()));
+
+                                                        if(itemStack.hasTagCompound())
+                                                                item.getEntityItem().setTagCompound((NBTTagCompound)itemStack.getTagCompound().copy());
+
+                                                        world.spawnEntityInWorld(item);
+                                                }
+                                        }
+                                }
+                                world.func_147453_f(x, y, z, oldBlock);
+                        }
+                }
+                super.breakBlock(world, x, y, z, oldBlock, oldMetadata);
+        }
 }
